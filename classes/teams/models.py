@@ -9,6 +9,7 @@ class CourseType(models.Model):
 
     def __str__(self):
         return self.name
+
     class Meta:
         verbose_name = "Typ kursu"
         verbose_name_plural = "Typy kursów"
@@ -56,6 +57,15 @@ class Student(models.Model):
         verbose_name = "Grupa",
         on_delete = models.CASCADE
     )
-
+    exercises = models.ManyToManyField(
+        'exams.Exercise',
+        verbose_name = "Zadania",
+        through =  'exams.ExerciseStudent'
+    )
     def __str__(self):
         return '{0} {1}: {2}'.format(self.name,self.surname, self.github_nick)
+
+
+    class Meta:
+        verbose_name = "Kursant"
+        verbose_name_plural = "Kursanci"
